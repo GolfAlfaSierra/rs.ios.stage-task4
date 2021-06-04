@@ -5,7 +5,11 @@ final class FillWithColor {
     func fillWithColor(_ image: [[Int]], _ row: Int, _ column: Int, _ newColor: Int) -> [[Int]] {
         var result = image
         
-        let prevColor = image[row][column] 
+        if (!image.indices.contains(row) || !image[row].indices.contains(column)) {
+            return image
+        }
+        
+        let prevColor = image[row][column]
         
         floodFill(&result, m: image.count, n: image[row].count, x: row, y: column, prevC: prevColor, newColor)
         
@@ -14,7 +18,7 @@ final class FillWithColor {
     
     func isValid(_ screen:[[Int]], _ m:Int , _ n:Int , x:Int, y:Int, _ prevC:Int, _ newC:Int) -> Bool {
         if (x < 0 || x >= m || y < 0 || y >= n ||
-            screen[x][y] != prevC || screen[x][y] == newC) {
+                screen[x][y] != prevC || screen[x][y] == newC) {
             return false
         }
         
